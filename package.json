@@ -1,0 +1,27 @@
+{
+  "name": "build-js-index",
+  "version": "1.0.0",
+  "description": "A utility to help build index files in directories that imports and exports sibling files in ES6 format",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JGordy/build-index.git"
+  },
+  "keywords": [
+    "index.js",
+    "ES6",
+    "utility"
+  ],
+  "author": "JGordy",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/JGordy/build-index/issues"
+  },
+  "homepage": "https://github.com/JGordy/build-index#readme",
+  "dependencies": {
+    "rc": "^1.2.8"
+  }
+}
