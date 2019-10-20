@@ -1,36 +1,26 @@
 const fs = require('fs');
-// const path = require('path');
-
-let config = require('rc')('index', {
+const path = require('path');
+const chalk = require('chalk');
+const config = require('rc')('idx', {
     dirs: [],
     entryFile: 'index.js',
 });
 
+const {
+    createFile,
+    readDirectory,
+} = require('./src/index.js');
+
 // Get paths from config file
-const directories = config.dirs;
-const entryFile = config.entryFile;
+const {
+    dirs: directories,
+    entryFile,
+} = config;
 
-const createFile = (file) => {
-    fs.writeFile(file, '', (err) => {
-        if (err) {
-            console.log(err);
-        }
-        console.log(`File '${file}' was created!`);
-        return;
-    });
-};
-
-const findOrCreateFile = (file) => {
-    fs.access(file, fs.F_OK, (err) => {
-        if (err) {
-            console.error(`${file} not found -- We're creating one for you`);
-            createFile(file);
-        }
-        return;
-    });
-}
+const { basename } = path;
 
 // TODO: Fix import path when not a sibling file
+// Path.relative(from, to) ???
 const exportItem = (file) => {
     const name = file.split('.')[0];
 
@@ -44,6 +34,7 @@ const writeToFile = (path, content) => {
     });
 };
 
+// TODO: WIP on to/from correct importing
 const updateEntry = (path, files) => {
     // Init fileContent
     const fileBanner = '// Do not update this file manually\n// Use the command "npm run build-index"\n\n';
@@ -52,7 +43,7 @@ const updateEntry = (path, files) => {
     // Loop through file names
     for (var i = 0; i < files.length; i++) {
         // Exclude the entryFile
-        if (!files[i].includes(entryFile)) {
+        if (entryFile !== files[i]) {
             const line = exportItem(files[i]);
             console.warn(`Exporting ${files[i]}...`);
             fileContent += line;
@@ -68,9 +59,9 @@ const addSlash = (string) => {
 }
 
 // Loop through directories
-const writeIndex = () => {
+const writeIndex = async () => {
     if (!config || !config.dirs) {
-        throw new Error('Must include an index.config.js file');
+        throw new Error(chalk.red('Must include an .idxrc file'));
     }
 
     for (let i = 0; i < directories.length; i++) {
@@ -80,14 +71,11 @@ const writeIndex = () => {
         let importFrom = addSlash(dir.importFrom);
         const readFilesFromDir = importFrom || path;
 
-        // Check for entryFile to update, create if not found
-        findOrCreateFile(`${path}${entryFile}`);
+        createFile(`${path}${entryFile}`);
 
         // Read sibling files from directory
-        fs.readdir(readFilesFromDir, (err, files) => {
-            if (err) throw err;
-            updateEntry(path + entryFile, files);
-        })
+        const files = await readDirectory(readFilesFromDir);
+        updateEntry(path + entryFile, files);
     };
 };
 
