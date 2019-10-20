@@ -1,9 +1,7 @@
-// TODO: Fix import path when not a sibling file
-// Path.relative(from, to) ???
-const exportItem = (file) => {
+const exportItem = (file, fromDir) => {
     const name = file.split('.')[0];
 
-    return `export { default as ${name} } from './${name}';\n`;
+    return `export { default as ${name} } from '${fromDir}${name}';\n`;
 };
 
 module.exports = exportItem;

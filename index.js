@@ -1,8 +1,11 @@
 const chalk = require('chalk');
+const path = require('path');
 const config = require('rc')('idx', {
     dirs: [],
     entryFile: 'index.js',
 });
+
+const { relative, resolve } = path;
 
 const {
     createFile,
@@ -31,16 +34,16 @@ const writeIndex = async () => {
         // In each directory:
         const dir = directories[i];
         const path = addSlash(dir.pathToIndex);
-        const importFrom = addSlash(dir.importFrom);
-        const readFilesFromDir = importFrom || path;
+        const fromDir = addSlash(dir.importFrom) || path;
+        const relativePath = addSlash(relative(fromDir, path) || '.');
 
-        createFile(`${path}${entryFile}`);
+        await createFile(`${path}${entryFile}`);
 
         // Read sibling files from directory
-        const files = await readDirectory(readFilesFromDir);
+        const files = await readDirectory(fromDir);
 
         // Formulate content
-        const fileContent = formulateContent(files, entryFile);
+        const fileContent = formulateContent(files, entryFile, relativePath);
 
         // Write content to file
         await writeToFile(path, fileContent, entryFile);

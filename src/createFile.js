@@ -22,7 +22,7 @@ const createFile = async (file) => {
         await fs.promises.writeFile(file, '');
         console.log(success(`File '${file}' was created!`));
     } catch (err) {
-        console.log(error(err));
+        throw new Error(error(err));
     }
 };
 
