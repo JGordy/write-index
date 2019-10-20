@@ -1,7 +1,7 @@
-const readDirectory = require('./readDirectory');
-const createFile = require('./createFile');
-
 module.exports = {
-    createFile,
-    readDirectory,
+    createFile: require('./createFile'),
+    exportItem: require('./exportItem'),
+    formulateContent: require('./formulateContent'),
+    readDirectory: require('./readDirectory'),
+    writeToFile: require('./writeToFile'),
 };
