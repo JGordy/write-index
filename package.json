@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "A utility to help build index files in directories that imports and exports sibling files in ES6 format",
   "main": "index.js",
+  "type": "module",
+  "bin": {
+    "idx-compose": ".bin/idx-compose.js"
+  },
   "scripts": {
     "test": "test"
   },
@@ -22,6 +26,7 @@
   },
   "homepage": "https://github.com/JGordy/write-index#readme",
   "dependencies": {
+    "chalk": "^2.4.2",
     "rc": "^1.2.8"
   }
 }
