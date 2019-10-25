@@ -16,7 +16,7 @@
   "scripts": {
     "build": "rollup -c",
     "build:watch": "rollup -c --watch",
-    "npm:pub": "npm run build && npm publish",
+    "pub": "npm run build && npm publish",
     "test": "test"
   },
   "repository": {
