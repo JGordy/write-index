@@ -35,7 +35,8 @@ const writeIndex = async () => {
         const dir = directories[i];
         const path = addSlash(dir.pathToIndex);
         const fromDir = addSlash(dir.importFrom) || path;
-        const relativePath = addSlash(relative(fromDir, path) || '.');
+
+        const relativePath = addSlash(`./${relative(path, fromDir)}`);
 
         await createFile(`${path}${entryFile}`);
 
