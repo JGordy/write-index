@@ -1,34 +1,29 @@
-const chalk = require('chalk');
 const path = require('path');
-const config = require('rc')('idx', {
-    dirs: [],
-    entryFile: 'index.js',
-});
 
 const { relative, resolve } = path;
 
 const {
     createFile,
     formulateContent,
+    getConfigOptions,
+    getWriteParameters,
     readDirectory,
     writeToFile,
 } = require('./src/index.js');
-
-// Get paths from config file
-const {
-    dirs: directories,
-    entryFile,
-} = config;
 
 const addSlash = (string) => {
     return string.endsWith('/') ? string : `${string}/`;
 }
 
 // Loop through directories
-const writeIndex = async () => {
-    if (!config || !config.dirs) {
-        throw new Error(chalk.red('Must include an .idxrc file'));
-    }
+const writeIndex = async (...args) => {
+    const command = args.pop();
+
+    const { directories, entryFile } = getWriteParameters(command, args);
+    console.log("Dirs: ", directories);
+    console.log("Entry: ", entryFile);
+
+
 
     for (let i = 0; i < directories.length; i++) {
         // In each directory:
