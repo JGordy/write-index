@@ -8,18 +8,12 @@ const writeIndex = require('../index');
 
 const program = new commander.Command();
 
-program.version(pkg.version, '-v, --version', 'output the current version');
-
-// program
-//     .option('-c, --config', 'use config file arguments')
-//     .action(writeIndex)
-//     .option('-e, --entry', 'what to call the entry file { default: index.js }', 'index.js')
-
 program
-    .arguments('[importFrom] [pathToIndex]')
-    .description('creates index.js from sibling files or directory specified')
+    .description('Creates index.js from sibling files or directory specified')
+    .version(pkg.version, '-v, --version', 'output the current version')
     .option('-c, --config', 'use config file arguments')
     .option('-e, --entryFile <name>', 'specify entry file name', 'index.js')
+    .arguments('[importFrom] [pathToIndex]')
     .action(writeIndex)
 
 program.parse(process.argv);

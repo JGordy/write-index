@@ -1,11 +1,10 @@
 const path = require('path');
 
-const { relative, resolve } = path;
+const { relative } = path;
 
 const {
     createFile,
     formulateContent,
-    getConfigOptions,
     getWriteParameters,
     readDirectory,
     writeToFile,
@@ -18,12 +17,7 @@ const addSlash = (string) => {
 // Loop through directories
 const writeIndex = async (...args) => {
     const command = args.pop();
-
     const { directories, entryFile } = getWriteParameters(command, args);
-    console.log("Dirs: ", directories);
-    console.log("Entry: ", entryFile);
-
-
 
     for (let i = 0; i < directories.length; i++) {
         // In each directory:
