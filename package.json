@@ -1,6 +1,6 @@
 {
   "name": "write-index",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "A utility to help build index files in directories that imports and exports sibling files in ES6 format",
   "main": "dist/index.js",
   "type": "module",
