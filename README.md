@@ -1,6 +1,6 @@
 # write-index
 
-[![npm](https://badge.fury.io/js/%2Fwrite-index.svg)](https://badge.fury.io/js/%2Fwrite-index)
+[![npm version](https://badge.fury.io/js/write-index.svg)](https://badge.fury.io/js/write-index)
 [![Downloads](https://img.shields.io/npm/dw/write-index.svg)](https://img.shields.io/npm/dw/write-index)
 
 > `write-index` creates and writes index.js files in specified directories that imports and exports sibling files in ES6 format.
